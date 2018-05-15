@@ -1,0 +1,53 @@
+"""
+WORLD VALUE SURVEY
+AULA 14/05 - PYTHON 
+LARISSA FERNANDES 
+"""
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+os.listdir() 
+
+wsv  = pd.read_csv('WV6_Data_ascii_v_2015_04_18.dat',
+                    header = None)
+wsv.shape #Tamanho
+wsv.columns #Nomes  das variaveis
+
+wsv[1].value_counts() #Contagem dos valores
+
+wsv.loc[wsv[1] == 76,1].value_counts() #Saber tamanho 
+
+#Quantidade de entrevistas do Brasil e Argelia
+
+wsv.loc[(wsv[1] == 76) |
+        (wsv[1] == 12),1].value_counts()
+
+#Saber se as pessoas se sentem feliz 
+
+wsv[9].value_counts()
+
+#Substituir categorias de nao resposta po NaNs
+wsv.loc[wsv[9] == -2,9]= np.nan
+wsv.loc[wsv[9] == -5,9]= np.nan
+wsv.loc[wsv[9] == -1,9]= np.nan
+
+#Uso a barra invertida par indicar quebra de linha (*100 por cento)
+round((wsv[9].value_counts()/\
+wsv[9].value_counts().sum()) *100,2) #2 casas decimais
+
+
+#saber se os EUA é mais feliz que o Brasil 
+# selecionar apenas os casos que a varivael 1 =76
+
+(wsv.loc[wsv[1] == 76,9].value_counts() /\
+wsv.loc[wsv[1] == 76,9].value_counts().sum())*100
+
+
+(wsv.loc[wsv[1] == 840,9].value_counts() /\
+wsv.loc[wsv[1] == 840,9].value_counts().sum())*100
+
+
+
